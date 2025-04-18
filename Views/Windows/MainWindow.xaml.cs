@@ -10,10 +10,9 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Al25
+namespace Al25.Views.Windows
 {
     /// <summary>
     /// Логика взаимодействия для MainWindow.xaml
@@ -23,6 +22,11 @@ namespace Al25
         public MainWindow()
         {
             InitializeComponent();
+        }
+
+        private void TabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
         }
     }
 }
