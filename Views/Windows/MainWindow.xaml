@@ -9,6 +9,13 @@
         xmlns:vm ="clr-namespace:Al25.ViewModels"
         mc:Ignorable="d"
         Title="{Binding Title}" Height="450" Width="800">
+    <Window.Resources>
+        <cmd:CloseApplicationCommand x:Key="CloseApplicationCommand"/>
+    </Window.Resources>
+
+    <Window.InputBindings>
+        <KeyBinding Modifiers="Control" Key="Q" Command="{Binding CloseApplicationCommand}"></KeyBinding>
+    </Window.InputBindings>
     <Window.DataContext>
         <vm:MainWindowViewModel/>
     </Window.DataContext>
@@ -16,11 +23,12 @@
         <Menu DockPanel.Dock="Top">
             <MenuItem Header="File">
                 <!--MenuItem Header="Exit" Command="{Binding CloseApplicationCommand}"/-->
-                <MenuItem Header="Exit">
+                <MenuItem Header="Exit" Command="{StaticResource CloseApplicationCommand}"/>
+                <!--MenuItem Header="Exit">
                     <MenuItem.Command>
                         <cmd:CloseApplicationCommand/>
                     </MenuItem.Command>
-                </MenuItem>
+                </MenuItem-->
                           
             </MenuItem>
             <MenuItem Header="Help">
@@ -51,7 +59,12 @@
                     <Rectangle Grid.Column="0" Grid.Row="0" Margin="5,7"
                         Fill="blue" Stroke =" red" StrokeThickness ="3"  RadiusX="5" RadiusY ="7"></Rectangle>
                     <Ellipse Grid.Column="1" Grid.Row= "0" 
-                        Fill="Red" Stroke=" blue" StrokeThickness="3"/>
+                        Fill="Red" Stroke=" blue" StrokeThickness="3">
+                        <Ellipse.InputBindings>
+                            <MouseBinding Command="{Binding CloseApplicationCommand}"
+                                          MouseAction="LeftDoubleClick"></MouseBinding>
+                        </Ellipse.InputBindings>
+                    </Ellipse>
                     <GridSplitter Grid.Column="0" Grid.RowSpan="2"
                                   HorizontalAlignment="Right" Width="4"></GridSplitter>
                 </Grid>
