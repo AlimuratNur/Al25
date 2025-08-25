@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Al25.Views.Windows"
+        xmlns:fa5="http://schemas.fontawesome.com/icons/"
         xmlns:cmd ="clr-namespace:Al25.Infrastuctura.Commands"
 
         xmlns:vm ="clr-namespace:Al25.ViewModels"
@@ -46,7 +47,15 @@
             </StatusBarItem>
         </StatusBar>
         <TabControl SelectionChanged="TabControl_SelectionChanged">
-            <TabItem Header="Вкладка 1">
+            <TabItem >
+                <TabItem.Header>
+                    <StackPanel Orientation="Horizontal">
+                    <fa5:ImageAwesome Icon="Regular_StickyNote" Height="13" Margin="0,0,5,0"
+                                      Foreground="BlueViolet"/>
+                    <TextBlock Text = "Вкладка 1"/>
+                    </StackPanel>
+                </TabItem.Header>
+                
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="65*"/>
