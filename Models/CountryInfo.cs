@@ -1,0 +1,9 @@
+﻿using System.Collections.Generic;
+
+namespace Al25.Models
+{
+    internal class CountryInfo : PlaceInfo
+    {
+        public IEnumerable<ProvinceInfo> Provinces { get; set; }
+    }
+}
