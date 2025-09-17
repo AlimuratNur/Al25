@@ -1,21 +1,36 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
+using System.Windows.Markup;
 using Al25.Infrastuctura.Commands;
+using Al25.Models;
 using Al25.ViewModels.Base;
 
 namespace Al25.ViewModels
 {
-    internal class MainWindowViewModel
+    internal class MainWindowViewModel : ViewModel
     {
+        #region DatatPoint
+        private IEnumerable<DataPoint> _points;
+        public IEnumerable<DataPoint> Points { get => _points; set => Set(ref _points, value); }
+        
+
+        #endregion
+
         #region Constructor 
         public MainWindowViewModel()
         {
             // Инициализация команд
             CloseApplicationCommand = new LambdaCommand(OnCloseApplicationCommandExecuted, CanCloseApplicationCommandExecute);
+
+            var data_point = new List<DataPoint>((int)(360 / 0.1));
+            for (var x = 0d; x <= 360; x += 0.1)
+            {
+                var y = Math.Sin(x * Math.PI / 180);
+                data_point.Add(new DataPoint { XValue = x, YValue = y });
+            }
+
+            Points = data_point;
         }
         #endregion
 
