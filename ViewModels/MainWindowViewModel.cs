@@ -13,42 +13,20 @@ namespace Al25.ViewModels
 {
     internal class MainWindowViewModel : ViewModel
     {
-        #region TestDatatPoint
-        private IEnumerable<TestDataPoint> _points;
-        public IEnumerable<TestDataPoint> Points { get => _points; set => Set(ref _points, value); }
+        #region SelectedPage
+
+        private int _SelectedPageIndex;
+        public int SelectedPageIndex { 
+            get => _SelectedPageIndex; 
+            set => Set(ref _SelectedPageIndex, value); }
+
         #endregion
 
         #region PlotModel
-        public PlotModel MyPlotModel { get; private set; }
+        public PlotModel MyPlotModel { get;  }
+        #endregion
+
         
-
-        #endregion
-
-        #region Constructor 
-        public MainWindowViewModel()
-        {
-            // Инициализация команд
-            CloseApplicationCommand = new LambdaCommand(OnCloseApplicationCommandExecuted, CanCloseApplicationCommandExecute);
-
-            #region TestDataPointInit
-            var data_point = new List<TestDataPoint>((int)(360 / 0.1));
-            for (var x = 0d; x <= 360; x += 0.1)
-            {
-                var y = Math.Sin(x * Math.PI / 180);
-                data_point.Add(new TestDataPoint { XValue = x, YValue = y });
-            }
-
-            Points = data_point;
-            #endregion
-
-            #region OxyPLotInit
-            MyPlotModel = new PlotModel();
-            MyPlotModel.Series.Add(new FunctionSeries(Math.Sin, 0, 10 ,0.1 , "Sin"));
-
-            #endregion
-        }
-        #endregion
-
         #region Title string :
         private string _title = "Тестовая программа Al25";
         public string Title
@@ -77,7 +55,10 @@ namespace Al25.ViewModels
         #endregion
 
         #region Commands
-        public ICommand CloseApplicationCommand { get; }
+
+        #region CloseApplicationCommand
+
+         public ICommand CloseApplicationCommand { get; }
 
         private void OnCloseApplicationCommandExecuted(object p)
         {
@@ -88,6 +69,39 @@ namespace Al25.ViewModels
         private bool CanCloseApplicationCommandExecute(object p) => true; // Здесь можно добавить логику проверки, если нужно
 
         #endregion
+
+        #region ChangeTabIndexCommand
+
+        public ICommand ChangeTabIndexCommand { get; }
+
+        private bool CanChangeTabIndexCommandExecute(object p) => _SelectedPageIndex >= 0;
+
+        private void OnChangeTabIndexCommnadExecute(object p)
+        {
+            if (p is null) return;
+            SelectedPageIndex += Convert.ToInt32(p);
+
+        }
+        #endregion
+
+        #endregion
+
+        #region Constructor 
+        public MainWindowViewModel()
+        {
+            // Инициализация команд
+            CloseApplicationCommand = new LambdaCommand(OnCloseApplicationCommandExecuted, CanCloseApplicationCommandExecute);
+            ChangeTabIndexCommand = new LambdaCommand( OnChangeTabIndexCommnadExecute, CanChangeTabIndexCommandExecute);
+
+            #region OxyPLotInit
+            MyPlotModel = new PlotModel();
+            MyPlotModel.Series.Add(new FunctionSeries(Math.Sin, 0, 10 ,0.1 , "Sin"));
+
+            #endregion
+        }
+        #endregion
+
+        
 
     }
 }
