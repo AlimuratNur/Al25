@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:Al25.Views.Windows"
         xmlns:fa5="http://schemas.fontawesome.com/icons/"
         xmlns:cmd ="clr-namespace:Al25.Infrastuctura.Commands"
-
+        xmlns:oxy ="http://oxyplot.org/wpf"
         xmlns:vm ="clr-namespace:Al25.ViewModels"
         mc:Ignorable="d"
         Title="{Binding Title}" Height="450" Width="800">
@@ -78,8 +78,11 @@
                                   HorizontalAlignment="Right" Width="4"></GridSplitter>
                 </Grid>
             </TabItem>
-            <TabItem Header="Вкладка 2">
-                <Grid/>
+            <TabItem Header="График">
+                <oxy:PlotView Model="{Binding MyPlotModel}">
+                    
+                </oxy:PlotView>
+
             </TabItem>
             <Grid Height="388" VerticalAlignment="Bottom" Width="794"/>
         </TabControl>

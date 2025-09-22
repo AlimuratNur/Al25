@@ -1,6 +1,6 @@
 ﻿namespace Al25.Models
 {
-    internal struct DataPoint
+    internal struct TestDataPoint
     {
         public double XValue { get; set; }
         public double YValue { get; set; }

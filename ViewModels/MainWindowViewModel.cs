@@ -5,14 +5,21 @@ using System.Windows.Markup;
 using Al25.Infrastuctura.Commands;
 using Al25.Models;
 using Al25.ViewModels.Base;
+using OxyPlot;
+using OxyPlot.Series;
+
 
 namespace Al25.ViewModels
 {
     internal class MainWindowViewModel : ViewModel
     {
-        #region DatatPoint
-        private IEnumerable<DataPoint> _points;
-        public IEnumerable<DataPoint> Points { get => _points; set => Set(ref _points, value); }
+        #region TestDatatPoint
+        private IEnumerable<TestDataPoint> _points;
+        public IEnumerable<TestDataPoint> Points { get => _points; set => Set(ref _points, value); }
+        #endregion
+
+        #region PlotModel
+        public PlotModel MyPlotModel { get; private set; }
         
 
         #endregion
@@ -23,14 +30,22 @@ namespace Al25.ViewModels
             // Инициализация команд
             CloseApplicationCommand = new LambdaCommand(OnCloseApplicationCommandExecuted, CanCloseApplicationCommandExecute);
 
-            var data_point = new List<DataPoint>((int)(360 / 0.1));
+            #region TestDataPointInit
+            var data_point = new List<TestDataPoint>((int)(360 / 0.1));
             for (var x = 0d; x <= 360; x += 0.1)
             {
                 var y = Math.Sin(x * Math.PI / 180);
-                data_point.Add(new DataPoint { XValue = x, YValue = y });
+                data_point.Add(new TestDataPoint { XValue = x, YValue = y });
             }
 
             Points = data_point;
+            #endregion
+
+            #region OxyPLotInit
+            MyPlotModel = new PlotModel();
+            MyPlotModel.Series.Add(new FunctionSeries(Math.Sin, 0, 10 ,0.1 , "Sin"));
+
+            #endregion
         }
         #endregion
 
