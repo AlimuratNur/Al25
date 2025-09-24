@@ -47,35 +47,16 @@
         </StatusBar>
 
         <TabControl SelectionChanged="TabControl_SelectionChanged" SelectedIndex="{Binding SelectedPageIndex}">
-            <TabItem >
-                <TabItem.Header>
-                    <StackPanel Orientation="Horizontal">
-                    <fa5:ImageAwesome Icon="Regular_StickyNote" Height="13" Margin="0,0,5,0"
-                                      Foreground="BlueViolet"/>
-                    <TextBlock Text = "Вкладка 1"/>
-                    </StackPanel>
-                </TabItem.Header>
-                
+            <TabItem Header ="Студенты" >
                 <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="65*"/>
-                        <RowDefinition Height="323*"/>
-                    </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="127*"/>
-                        <ColumnDefinition Width="270*"/>
-                    </Grid.ColumnDefinitions>
-                    <Rectangle Grid.Column="0" Grid.Row="0" Margin="5,7"
-                        Fill="blue" Stroke =" red" StrokeThickness ="3"  RadiusX="5" RadiusY ="7"></Rectangle>
-                    <Ellipse Grid.Column="1" Grid.Row= "0" 
-                        Fill="Red" Stroke=" blue" StrokeThickness="3">
-                        <Ellipse.InputBindings>
-                            <MouseBinding Command="{Binding CloseApplicationCommand}"
-                                          MouseAction="LeftDoubleClick"></MouseBinding>
-                        </Ellipse.InputBindings>
-                    </Ellipse>
-                    <GridSplitter Grid.Column="0" Grid.RowSpan="2"
-                                  HorizontalAlignment="Right" Width="4"></GridSplitter>
+                        <ColumnDefinition Width="250">
+                        </ColumnDefinition>
+                    </Grid.ColumnDefinitions> 
+
+                    <GroupBox Header="Группы">
+                        <ListBox ItemsSource="{Binding Groups}"></ListBox>
+                    </GroupBox>
                 </Grid>
             </TabItem>
             <TabItem Header="График">

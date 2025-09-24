@@ -1,10 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
 using System.Windows.Input;
 using System.Windows.Markup;
 using Al25.Infrastuctura.Commands;
 using Al25.Models;
+using Al25.Models.Decanat;
 using Al25.ViewModels.Base;
+using Newtonsoft.Json.Converters;
 using OxyPlot;
 using OxyPlot.Series;
 
@@ -26,7 +30,6 @@ namespace Al25.ViewModels
         public PlotModel MyPlotModel { get;  }
         #endregion
 
-        
         #region Title string :
         private string _title = "Тестовая программа Al25";
         public string Title
@@ -54,11 +57,18 @@ namespace Al25.ViewModels
         }
         #endregion
 
+        #region Student and Groups
+
+        public Collection<Group> Groups { get;  }
+
+        #endregion
+
+        /*--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
         #region Commands
 
         #region CloseApplicationCommand
 
-         public ICommand CloseApplicationCommand { get; }
+        public ICommand CloseApplicationCommand { get; }
 
         private void OnCloseApplicationCommandExecuted(object p)
         {
@@ -86,22 +96,38 @@ namespace Al25.ViewModels
 
         #endregion
 
-        #region Constructor 
+        /*-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
         public MainWindowViewModel()
         {
+            #region Команды
             // Инициализация команд
             CloseApplicationCommand = new LambdaCommand(OnCloseApplicationCommandExecuted, CanCloseApplicationCommandExecute);
-            ChangeTabIndexCommand = new LambdaCommand( OnChangeTabIndexCommnadExecute, CanChangeTabIndexCommandExecute);
-
+            ChangeTabIndexCommand = new LambdaCommand(OnChangeTabIndexCommnadExecute, CanChangeTabIndexCommandExecute);
+            #endregion
+            
             #region OxyPLotInit
             MyPlotModel = new PlotModel();
             MyPlotModel.Series.Add(new FunctionSeries(Math.Sin, 0, 10 ,0.1 , "Sin"));
 
             #endregion
+
+            var studentIndex = 1;
+            var students = Enumerable.Range(1, 10).Select(i => new Student
+            {
+                Name = $"Name {studentIndex}",
+                Surname = $"Surname {studentIndex}",
+                Patronymic = $"Patronomic {studentIndex++}",
+                Birthday = DateTime.Now,
+                Rating = 0
+            });
+
+            var group = Enumerable.Range(1, 20).Select(g => new Group
+            {
+                Name = $"Name {g}",
+                Students = new ObservableCollection<Student>(students)
+            });
+
+            Groups = new ObservableCollection<Group>(group);
         }
-        #endregion
-
-        
-
     }
 }

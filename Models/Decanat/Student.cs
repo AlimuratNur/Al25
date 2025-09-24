@@ -11,7 +11,7 @@ namespace Al25.Models.Decanat
 
         public string Surname { get; set; }
 
-        public int Patronymic { get; set; }
+        public string Patronymic { get; set; }
 
         public DateTime Birthday { get; set; }
 
