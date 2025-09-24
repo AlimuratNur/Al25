@@ -29,7 +29,7 @@
             <MenuItem Header="File">
                 <!--MenuItem Header="Exit" Command="{Binding CloseApplicationCommand}"/-->
                 <MenuItem Header="Exit" Command="{StaticResource CloseApplicationCommand}"/>
-                          
+
             </MenuItem>
             <MenuItem Header="Help">
                 <MenuItem Header="Info"/>
@@ -51,11 +51,32 @@
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="250">
-                        </ColumnDefinition>
-                    </Grid.ColumnDefinitions> 
+                        </ColumnDefinition >
+                    </Grid.ColumnDefinitions>
 
-                    <GroupBox Header="Группы">
-                        <ListBox ItemsSource="{Binding Groups}"></ListBox>
+                    <GroupBox Grid.Column="0" Header="Группы" >
+                        <ListBox ItemsSource="{Binding Groups}" DisplayMemberPath="Name" SelectedItem="{Binding SelectedGroup}"></ListBox>
+                    </GroupBox>
+                    <GroupBox 
+                              Header="{Binding SelectedGroup.Name, FallbackValue = 'Студенты', TargetNullValue='Группа не выбрана'}" Margin="250,0,-541,-1" RenderTransformOrigin="0.5,0.5">
+                        <GroupBox.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform/>
+                                <SkewTransform AngleY="0.152"/>
+                                <RotateTransform/>
+                                <TranslateTransform Y="0.331"/>
+                            </TransformGroup>
+                        </GroupBox.RenderTransform>
+
+                        <DataGrid ItemsSource="{Binding SelectedGroup.Students}" AutoGenerateColumns="False">
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Header="Фамилия" Binding="{Binding Surname}"/>
+                                    <DataGridTextColumn Header="Имя" Binding ="{Binding Name}"/>
+                                    <DataGridTextColumn Header="Отчество" Binding="{Binding Patronymic}"/>
+                                    <DataGridTextColumn Header="Рейтинг" Binding="{Binding Rating}"/>
+                                    <DataGridTextColumn Header="Дата рождения" Binding="{Binding Birthday}"/>
+                            </DataGrid.Columns>
+                        </DataGrid>
                     </GroupBox>
                 </Grid>
             </TabItem>

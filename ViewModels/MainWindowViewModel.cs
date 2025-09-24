@@ -63,6 +63,20 @@ namespace Al25.ViewModels
 
         #endregion
 
+        #region SelectedGroup  
+
+        private Group _SeletedGroup;
+        public Group SelectedGroup
+        {
+            get => _SeletedGroup;
+            set
+            {
+                Set(ref _SeletedGroup, value);
+            }
+        }
+
+        #endregion
+
         /*--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
         #region Commands
 
